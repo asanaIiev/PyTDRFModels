@@ -32,6 +32,7 @@ jobs:
         env:
           SECRET_KEY: "test-key"
           DEBUG: "True"
+          PYTHONPATH: ${{ github.workspace }}/settings
         run: python settings/manage.py test
 
 #  deploy:
