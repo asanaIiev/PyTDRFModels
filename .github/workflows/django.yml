@@ -33,7 +33,7 @@ jobs:
           SECRET_KEY: "test-key"
           DEBUG: "True"
           PYTHONPATH: ${{ github.workspace }}
-        run: python settings/manage.py test
+        run: python settings/manage.py test app
 
 #  deploy:
 #    runs-on: ubuntu-latest
