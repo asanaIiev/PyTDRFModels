@@ -31,7 +31,6 @@ jobs:
       - name: Run Django Tests
         env:
           SECRET_KEY: "test-key"
-          DEBUG: "True"
           PYTHONPATH: ${{ github.workspace }}
         run: python settings/manage.py test app
 
