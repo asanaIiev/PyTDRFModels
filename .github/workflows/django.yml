@@ -99,7 +99,8 @@ jobs:
 #            key: ${{ secrets.SSH_PRIVATE_KEY }}
 #            port: 22
 #            script: |
+#              cd /home/ubuntu/project
+#              git pull origin master
 #              docker pull ${{ env.IMAGE_NAME }}:latest
-#              docker stop docker-app || true
-#              docker rm docker-app || true
-#              docker run -d --name docker-app -p 8000:8000 ${{ env.IMAGE_NAME }}:latest
+#              docker compose down || true
+#              docker compose up -d
