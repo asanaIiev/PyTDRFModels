@@ -5,10 +5,8 @@ services:
     container_name: django_backend
     ports:
       - "8000:8000"
-    volumes:
-      - .:/app
     command:
-      - uvicorn run main:app --host 0.0.0.0 --port 8000 --reload
+      - uvicorn run main:app --host 0.0.0.0 --port 8000
 
   frontend:
     depends_on:
@@ -17,7 +15,5 @@ services:
     image: docker.io/asanaliev/pytfastapimodels:latest
     ports:
       - "8501:8501"
-    volumes:
-      - .:/app
     command:
       - streamlit run frontend/st.py --server.address 0.0.0.0
