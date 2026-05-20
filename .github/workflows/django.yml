@@ -46,7 +46,7 @@ jobs:
 #          key: ${{ secrets.SSH_PRIVATE_KEY }}
 #          port: 22
 #          script: |
-#            cd /var/www/pytdrfmodels
+#            cd /home/ubuntu/project
 #            git pull origin master
 #            source venv/bin/activate
 #            pip install -r requirements.txt
