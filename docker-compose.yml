@@ -1,0 +1,21 @@
+services:
+
+  api:
+    container_name: django_backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    command:
+      - uvicorn run main:app --host 0.0.0.0 --port 8000 --reload
+
+  frontend:
+    depends_on:
+      - api
+    container_name: streamlit_ui
+    ports:
+      - "8501:8501"
+    volumes:
+      - .:/app
+    command:
+      - streamlit run frontend/st.py --server.address 0.0.0.0
