@@ -16,7 +16,7 @@ if task == 'Computer Vision':
 
 
     if cv_model == 'CIFAR-10':
-        api = 'http://127.0.0.1:8000/cifar_10/'
+        api = 'http://api:8000/cifar_10/'
 
         st.title(f'Model {cv_model}')
         st.write('Upload the file and model will try to recognize it')
@@ -40,7 +40,7 @@ if task == 'Computer Vision':
 
 
     if cv_model == 'CIFAR-100':
-        api = 'http://127.0.0.1:8000/cifar_100/'
+        api = 'http://api:8000/cifar_100/'
 
         st.title(f'Model {cv_model}')
         st.write('Upload the file and model will try to recognize it')
@@ -64,7 +64,7 @@ if task == 'Computer Vision':
 
 
     if cv_model == 'Smartphones':
-        api = 'http://127.0.0.1:8000/phones/'
+        api = 'http://api:8000/phones/'
 
         st.title(f'Model {cv_model}')
         st.write('Upload the file and model will try to recognize it')
