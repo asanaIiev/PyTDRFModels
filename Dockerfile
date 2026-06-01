@@ -1,5 +1,7 @@
 FROM python:3.12-slim
 
+ENV DJANGO_SETTINGS_MODULE=settings.settings.settings
+
 WORKDIR /app
 
 COPY requirements.txt .
