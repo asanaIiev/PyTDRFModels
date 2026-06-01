@@ -100,6 +100,7 @@ jobs:
             port: 22
             script: |
               cd /home/ubuntu/project
+              docker system prune -a -f
               docker pull ${{ env.IMAGE_NAME }}:latest
               docker compose down || true
               docker compose up -d
