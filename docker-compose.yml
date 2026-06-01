@@ -1,18 +1,19 @@
 services:
 
   api:
-    image: docker.io/asanaliev/pytfastapimodels:latest
+    image: docker.io/asanaliev/pytdrfmodels:latest
     container_name: django_backend
     ports:
       - "8000:8000"
+    working_dir: /app/settings
     environment:
       - PYTHONPATH=/app/settings
-      - DJANGO_SETTINGS_MODULE=settings.settings.settings
-    command: uvicorn settings.settings.asgi:application --host 0.0.0.0 --port 8000
+      - DJANGO_SETTINGS_MODULE=settings.settings
+    command: uvicorn settings.asgi:application --host 0.0.0.0 --port 8000
     restart: always
 
   frontend:
-    image: docker.io/asanaliev/pytfastapimodels:latest
+    image: docker.io/asanaliev/pytdrfmodels:latest
     container_name: streamlit_ui
     depends_on:
       - api
