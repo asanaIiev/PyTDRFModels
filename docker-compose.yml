@@ -5,6 +5,7 @@ services:
     container_name: django_backend
     ports:
       - "8000:8000"
+    command: uvicorn settings.settings.asgi:application --host 0.0.0.0 --port 8000
     restart: always
 
   frontend:
