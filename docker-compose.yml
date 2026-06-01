@@ -14,5 +14,5 @@ services:
       - api
     ports:
       - "8501:8501"
-    command: streamlit run frontend/st.py --server.address 0.0.0.0
+    command: streamlit run settings/frontend/st.py --server.address 0.0.0.0
     restart: always
