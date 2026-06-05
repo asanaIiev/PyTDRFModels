@@ -38,10 +38,8 @@ class LoginSerializer(serializers.Serializer):
 
     def validate(self, attrs):
         user = authenticate(username=attrs['username'], password=attrs['password'])
-
         if not user:
             raise serializers.ValidationError({'detail': 'Invalid credentials.'})
-
         attrs['user'] = user
         return attrs
 
