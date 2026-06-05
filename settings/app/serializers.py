@@ -14,16 +14,17 @@ class UserProfileDetailSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class RegisterSerializer(serializers.ModelSerializer):
-    password = serializers.CharField(write_only=True, validators=[validate_password])
+    password = serializers.CharField(write_only=True) #, validators=[validate_password]
     password2 = serializers.CharField(write_only=True)
 
     class Meta:
         model = UserProfile
-        fields = ('username', 'email', 'password', 'password2')
+        fields = ['username', 'email', 'password', 'password2']
 
     def validate(self, attrs):
         if attrs['password'] != attrs['password2']:
-            raise serializers.ValidationError({'password': 'Passwords does not match'})
+            raise serializers.ValidationError({'detail': 'Passwords does not match'})
+        validate_password(attrs['password'])
         return attrs
 
     def create(self, validated_data):
