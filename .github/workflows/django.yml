@@ -92,6 +92,7 @@ jobs:
 
   build-and-push:
     runs-on: ubuntu-latest
+    needs: test
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -124,7 +125,7 @@ jobs:
             port: 22
             script: |
               cd /home/ubuntu/project
-              docker system prune -a -f
+              docker image prune -f
               docker pull ${{ env.IMAGE_NAME }}:latest
               docker compose down || true
               docker compose up -d
