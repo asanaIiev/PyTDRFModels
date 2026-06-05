@@ -50,10 +50,12 @@ class RegisterView(generics.GenericAPIView):
         serializer = RegisterSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = serializer.save()
-        tokens = get_tokens_for_user(user)
         return Response({
             'detail': 'Sign up completed.',
-            **tokens
+            'avatar': user.avatar,
+            'username': user.username,
+            'status': user.status,
+            'registered_date': user.registered_date
         }, status=status.HTTP_200_OK)
 
 class LoginView(generics.GenericAPIView):
@@ -67,9 +69,7 @@ class LoginView(generics.GenericAPIView):
         tokens = get_tokens_for_user(user)
         return Response({
             'detail': 'Sign in completed.',
-            'username': user.username,
-            'email': user.email,
-            **tokens
+            **tokens,
         }, status=status.HTTP_200_OK)
 
 class LogoutView(generics.GenericAPIView):
