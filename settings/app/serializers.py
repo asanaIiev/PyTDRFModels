@@ -2,28 +2,23 @@ from rest_framework import serializers
 from .models import UserProfile
 from django.contrib.auth.password_validation import validate_password
 from rest_framework_simplejwt.tokens import RefreshToken
-from django.contrib.auth import get_user_model, authenticate
-
+from django.contrib.auth import authenticate
 
 class UserProfileListSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserProfile
         fields = ['id', 'avatar', 'username', 'status']
-
-
 class UserProfileDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserProfile
         fields = '__all__'
 
-
-User = get_user_model()
 class RegisterSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True, validators=[validate_password])
     password2 = serializers.CharField(write_only=True)
 
     class Meta:
-        model = User
+        model = UserProfile
         fields = ('username', 'email', 'password', 'password2')
 
     def validate(self, attrs):
@@ -33,9 +28,8 @@ class RegisterSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         validated_data.pop('password2')
-        user = User.objects.create_user(**validated_data)
+        user = UserProfile.objects.create_user(**validated_data)
         return user
-
 
 class LoginSerializer(serializers.Serializer):
     username = serializers.CharField()
@@ -50,7 +44,6 @@ class LoginSerializer(serializers.Serializer):
         attrs['user'] = user
         return attrs
 
-
 class LogoutSerializer(serializers.Serializer):
     refresh = serializers.CharField()
 
@@ -61,14 +54,11 @@ class LogoutSerializer(serializers.Serializer):
     def save(self):
         self.token.blacklist()
 
-
 class CIFAR10Serializer(serializers.Serializer):
     image = serializers.ImageField()
 
-
 class CIFAR100Serializer(serializers.Serializer):
     image = serializers.ImageField()
-
 
 class SmartphonesSerializer(serializers.Serializer):
     image = serializers.ImageField()

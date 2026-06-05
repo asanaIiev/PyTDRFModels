@@ -17,14 +17,12 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 class UserProfileListAPIView(generics.ListAPIView):
     queryset = UserProfile.objects.all()
     serializer_class = UserProfileListSerializer
 
     def get_queryset(self):
         return UserProfile.objects.filter(id=self.request.user.id)
-
 
 class UserProfileDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = UserProfile.objects.all()
@@ -33,12 +31,10 @@ class UserProfileDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     def get_queryset(self):
         return UserProfile.objects.filter(id=self.request.user.id)
 
-
 class UserProfileListAdminAPIView(generics.ListAPIView):
     queryset = UserProfile.objects.all()
     serializer_class = UserProfileListSerializer
     permission_classes = [IsAdminUser]
-
 
 def get_tokens_for_user(user):
     refresh = RefreshToken.for_user(user)
@@ -46,7 +42,6 @@ def get_tokens_for_user(user):
         'refresh': str(refresh),
         'access': str(refresh.access_token),
     }
-
 class RegisterView(generics.GenericAPIView):
     permission_classes = [AllowAny]
     serializer_class = RegisterSerializer
@@ -60,7 +55,6 @@ class RegisterView(generics.GenericAPIView):
             'detail': 'Sign up completed.',
             **tokens
         }, status=status.HTTP_200_OK)
-
 
 class LoginView(generics.GenericAPIView):
     permission_classes = [AllowAny]
@@ -78,7 +72,6 @@ class LoginView(generics.GenericAPIView):
             **tokens
         }, status=status.HTTP_200_OK)
 
-
 class LogoutView(generics.GenericAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = LogoutSerializer
@@ -89,9 +82,7 @@ class LogoutView(generics.GenericAPIView):
         serializer.save()
         return Response({'detail': 'Logout completed.'}, status=status.HTTP_205_RESET_CONTENT)
 
-
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-
 
 cifar_10_model = CIFAR10Model().to(device)
 cifar_10_model.load_state_dict(torch.load(BASE_DIR / 'pth_models' / 'cifar_10_model.pth', map_location=device))
@@ -119,7 +110,6 @@ class CIFAR10APIView(APIView):
             predict = cifar_10_model(tensor_image)
             predict_index = torch.argmax(predict, dim=1).item()
             return Response({'Prediction': cifar_10_labels[predict_index]}, status=status.HTTP_200_OK)
-
 
 cifar_100_model = CIFAR100Model().to(device)
 cifar_100_model.load_state_dict(torch.load(BASE_DIR / 'pth_models' / 'cifar_100_model.pth', map_location=device))
@@ -149,7 +139,6 @@ class CIFAR100APIView(APIView):
             predict = cifar_100_model(tensor_image)
             predict_index = torch.argmax(predict, dim=1).item()
             return Response({'Prediction': cifar_100_labels[predict_index]})
-
 
 smartphones_model = SmartphonesModel().to(device)
 smartphones_model.load_state_dict(torch.load(BASE_DIR / 'pth_models' / 'smartphones_model.pth', map_location=device))
