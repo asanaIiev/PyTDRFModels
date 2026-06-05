@@ -61,7 +61,7 @@ class LoginView(generics.GenericAPIView):
     serializer_class = LoginSerializer
 
     def post(self, request):
-        serializer = LoginSerializer(data=request.data)
+        serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = serializer.validated_data['user']
         tokens = get_tokens_for_user(user)
@@ -77,7 +77,7 @@ class LogoutView(generics.GenericAPIView):
     serializer_class = LogoutSerializer
 
     def post(self, request):
-        serializer = LogoutSerializer(data=request.data)
+        serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response({'detail': 'Logout completed.'}, status=status.HTTP_205_RESET_CONTENT)
