@@ -40,8 +40,6 @@ jobs:
         run: |
           git clone https://github.com/${{ github.repository }}.git .
           git checkout ${{ github.sha }}
-        with:
-          lfs: true
 
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
