@@ -3,7 +3,7 @@ from torchvision import transforms
 from .serializers import *
 from .models import UserProfile
 from rest_framework.permissions import IsAdminUser
-from rest_framework import generics, status
+from rest_framework import generics, status, viewsets
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from .serializers import RegisterSerializer, LogoutSerializer
@@ -31,7 +31,7 @@ class UserProfileDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     def get_queryset(self):
         return UserProfile.objects.filter(id=self.request.user.id)
 
-class UserProfileListAdminAPIView(generics.ListAPIView):
+class UserProfileListAdminAPIView(viewsets.ModelViewSet):
     queryset = UserProfile.objects.all()
     serializer_class = UserProfileListSerializer
     permission_classes = [IsAdminUser]
