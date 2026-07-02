@@ -47,11 +47,11 @@ class LogoutSerializer(serializers.Serializer):
     refresh = serializers.CharField()
 
     def validate(self, attrs):
-        self.token = RefreshToken(attrs['refresh'])
+        self.refresh = RefreshToken(attrs['refresh'])
         return attrs
 
     def save(self):
-        self.token.blacklist()
+        self.refresh.blacklist()
 
 class CIFAR10Serializer(serializers.Serializer):
     image = serializers.ImageField()
